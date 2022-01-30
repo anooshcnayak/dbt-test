@@ -1,3 +1,6 @@
+# This file is necessary to install dbt-utils with dbt deps
+# the content will be overwritten by the transform function
+
 # Name your package! Package names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
@@ -21,7 +24,7 @@ macro-paths: ["macros"]
 
 target-path: "../build"  # directory which will store compiled SQL files
 log-path: "../logs"  # directory which will store DBT logs
-modules-path: "../dbt_modules"  # directory which will store external DBT dependencies
+modules-path: "/tmp/dbt_modules"  # directory which will store external DBT dependencies
 
 clean-targets:         # directories to be removed by `dbt clean`
     - "build"
@@ -39,18 +42,22 @@ quoting:
 # are materialized, and more!
 models:
   dbt_test:
+    +materialized: table
     generated:
       airbyte_ctes:
         +tags: airbyte_internal_cte
         +materialized: ephemeral
+      airbyte_incremental:
+        +tags: incremental_tables
+        +materialized: incremental
+        +on_schema_change: sync_all_columns
+      airbyte_tables:
+        +tags: normalized_tables
+        +materialized: table
       airbyte_views:
         +tags: airbyte_internal_views
         +materialized: view
-      airbyte_incremental:
-        +tags: normalized_tables
-        +materialized: table
-    +materialized: table
-    
+
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['dbt_test', 'dbt_utils']
