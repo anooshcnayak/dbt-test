@@ -24,7 +24,7 @@ macro-paths: ["macros"]
 
 target-path: "../build"  # directory which will store compiled SQL files
 log-path: "../logs"  # directory which will store DBT logs
-modules-path: "/tmp/dbt_modules"  # directory which will store external DBT dependencies
+modules-path: "../dbt_modules"  # directory which will store external DBT dependencies
 
 clean-targets:         # directories to be removed by `dbt clean`
     - "build"
@@ -58,6 +58,5 @@ models:
         +tags: airbyte_internal_views
         +materialized: view
 
-dispatch:
-  - macro_namespace: dbt_utils
-    search_order: ['dbt_test', 'dbt_utils']
+vars:
+  dbt_utils_dispatch_list: ['dbt_test']
