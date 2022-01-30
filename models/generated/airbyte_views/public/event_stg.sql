@@ -8,8 +8,24 @@
 -- depends_on: {{ ref('event_ab2') }}
 select
     {{ dbt_utils.surrogate_key([
+        'event_tag',
+        'name',
+        'title',
+        'status',
+        'outcome',
+        'end_time',
         'event_id',
-        'event_type'
+        'created_at',
+        'created_by',
+        'event_meta',
+        'event_type',
+        'start_time',
+        'updated_at',
+        'category_id',
+        'description',
+        'resolved_at',
+        'outcome_meta',
+        'display_picture',
     ]) }} as _airbyte_event_hashid,
     tmp.*
 from {{ ref('event_ab2') }} tmp
