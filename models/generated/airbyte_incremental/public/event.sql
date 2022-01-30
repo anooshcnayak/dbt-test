@@ -23,7 +23,7 @@ select
     convert_timezone('Asia/Kolkata', updated_at) as updated_at,
     category_id,
     description,
-    resolved_at at time zone INTERVAL '+05:30' as resolved_at,
+    convert_timezone('Asia/Kolkata', resolved_at) as resolved_at,
     outcome_meta,
     display_picture,
     _airbyte_ab_id,
