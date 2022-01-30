@@ -51,5 +51,6 @@ models:
         +materialized: table
     +materialized: table
     
-vars:
-  dbt_utils_dispatch_list: ['dbt_test']
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['dbt_test', 'dbt_utils']
