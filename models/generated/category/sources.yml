@@ -6,4 +6,4 @@ sources:
     schema: false
     identifier: false
   tables:
-  - name: _airbyte_raw_event
+  - name: _airbyte_raw_category
